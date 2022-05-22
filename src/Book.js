@@ -17,19 +17,20 @@ export function Book(title, year, publicationBy, authors) {
     this.title = title;
     this.year = year;
     this.publicationBy = publicationBy;
-    this.authors = authors;
+    this.authors = [];
     this.likedUsers = [];
-    this.authors.books.push(this);
+    this.authors.push(authors);
+    authors.books.push(this);
     this.publicationBy.myBooks.push(this);
-    this.authors.publicationUser.push(publicationBy);
+    authors.publicationUser.push(publicationBy);
     Object.defineProperty(this, 'suggestedBooks', {
         get() {
-            return this.authors.books.filter(item => item.title !== this.title).map(item => item.title).join(',');
+            return this.authors[0].books.filter(item => item.title !== this.title).map(item => item.title).join(',');
         }
     });
     Object.defineProperty(this, 'suggestedPublicators', {
         get() {
-            return this.authors.publicationUser.filter(item => item.name !== this.publicationBy.name).map(item => item.name).join(',');
+            return this.authors[0].publicationUser.filter(item => item.name !== this.publicationBy.name).map(item => item.name).join(',');
         }
     });
 }
