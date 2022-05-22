@@ -8,4 +8,9 @@ import { Book } from './Book.js';
  * @property {Date} dateOfBirth
  * @property {Book[]} books
  */
-export function Author(name, dateOfBirth) {}
+export function Author(name, dateOfBirth) {
+    this.name = name;
+    this.dateOfBirth = dateOfBirth;
+    this.books = [];
+    this.publicationUser = [];
+}
