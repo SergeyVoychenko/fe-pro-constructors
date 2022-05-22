@@ -20,9 +20,9 @@ export function Book(title, year, publicationBy, authors) {
     this.authors = [];
     this.likedUsers = [];
     this.authors.push(authors);
-    authors.books.push(this);
     this.publicationBy.myBooks.push(this);
-    authors.publicationUser.push(publicationBy);
+    this.authors[0].books.push(this);
+    this.authors[0].publicationUser.push(publicationBy);
     Object.defineProperty(this, 'suggestedBooks', {
         get() {
             return this.authors[0].books.filter(item => item.title !== this.title).map(item => item.title).join(',');
