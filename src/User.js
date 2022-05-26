@@ -38,17 +38,17 @@ export function User(name, date) {
     this.unlikeBook = this.likeBook;
     Object.defineProperty(this, 'friendsNames', {
         get () {
-            return this.friends.map(item => item.name).join(',');
+            return this.friends.map(({name}) => name).join(',');
         }
     });
     Object.defineProperty(this, 'likedBooks', {
         get () {
-            return this.likes.map(item => item.title).join(',');
+            return this.likes.map(({title}) => title).join(',');
         }
     });
     Object.defineProperty(this, 'publishedBooks', {
         get () {
-            return this.myBooks.map(item => item.title).join(',');
+            return this.myBooks.map(({title}) => title).join(',');
         }
     });
 }

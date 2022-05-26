@@ -12,5 +12,4 @@ export function Author(name, dateOfBirth) {
     this.name = name;
     this.dateOfBirth = dateOfBirth;
     this.books = [];
-    this.publicationUser = [];
 }

@@ -17,20 +17,27 @@ export function Book(title, year, publicationBy, authors) {
     this.title = title;
     this.year = year;
     this.publicationBy = publicationBy;
-    this.authors = [];
+    this.authors = authors;
     this.likedUsers = [];
-    this.authors.push(authors);
     this.publicationBy.myBooks.push(this);
-    this.authors[0].books.push(this);
-    this.authors[0].publicationUser.push(publicationBy);
+    this.authors.forEach(({ books }) => books.push(this));
     Object.defineProperty(this, 'suggestedBooks', {
         get() {
-            return this.authors[0].books.filter(item => item.title !== this.title).map(item => item.title).join(',');
+
+            return this.authors.reduce((acum, { books }) => {
+                return acum.concat(books);
+            }, []).filter(({ title }) => title !== this.title).map(({ title }) => title).join(',');
         }
     });
     Object.defineProperty(this, 'suggestedPublicators', {
         get() {
-            return this.authors[0].publicationUser.filter(item => item.name !== this.publicationBy.name).map(item => item.name).join(',');
+            const name = this.authors.reduce((acum, { books }) => {
+                return acum.concat(books);
+            }, []).reduce((acum, { publicationBy }) => {
+                return acum.concat(publicationBy.name);
+            }, []).filter((name) => name !== this.publicationBy.name);
+            let names = [...new Set(name)].map((name) => name).join(',');
+            return names;
         }
     });
 }
