@@ -26,7 +26,7 @@ export function Book(title, year, publicationBy, authors) {
 
             return this.authors.reduce((acum, { books }) => {
                 return acum.concat(books);
-            }, []).filter(({ title }) => title !== this.title).map(({ title }) => title).join(',');
+            }, []).filter(({ title }) => title !== this.title).map(({ title }) => title).join(', ');
         }
     });
     Object.defineProperty(this, 'suggestedPublicators', {
@@ -36,7 +36,7 @@ export function Book(title, year, publicationBy, authors) {
             }, []).reduce((acum, { publicationBy }) => {
                 return acum.concat(publicationBy.name);
             }, []).filter((name) => name !== this.publicationBy.name);
-            let names = [...new Set(name)].map((name) => name).join(',');
+            let names = [...new Set(name)].map((name) => name).join(', ');
             return names;
         }
     });
